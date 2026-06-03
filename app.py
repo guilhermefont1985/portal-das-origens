@@ -16,71 +16,51 @@ st.set_page_config(
     layout="wide"
 )
 
-st.markdown(
-    """
-    <style>
-    .stApp {
-        background-color: #f6eddc;
-    }
+st.markdown("""
+<style>
+.stApp {
+    background-color: #f6eddc;
+}
+.hero {
+    background: linear-gradient(135deg, #fff8e7, #ead7b7);
+    border: 4px double #8B6F47;
+    border-radius: 22px;
+    padding: 35px;
+    text-align: center;
+    margin-bottom: 25px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.18);
+}
+.hero h1 {
+    font-family: Georgia, serif;
+    color: #2b2118;
+    font-size: 46px;
+}
+.hero p {
+    font-size: 19px;
+    color: #5c452b;
+}
+.resultado {
+    background-color: #fff8e7;
+    border: 4px double #8B6F47;
+    border-radius: 20px;
+    padding: 30px;
+    font-family: Georgia, serif;
+    color: #2b2118;
+}
+</style>
+""", unsafe_allow_html=True)
 
-    .hero {
-        background: linear-gradient(135deg, #fff8e7, #ead7b7);
-        border: 4px double #8B6F47;
-        border-radius: 22px;
-        padding: 35px;
-        text-align: center;
-        margin-bottom: 25px;
-        box-shadow: 0px 4px 12px rgba(0,0,0,0.18);
-    }
-
-    .hero h1 {
-        font-family: Georgia, serif;
-        color: #2b2118;
-        font-size: 48px;
-        margin-bottom: 10px;
-    }
-
-    .hero p {
-        font-size: 20px;
-        color: #5c452b;
-    }
-
-
-    .resultado {
-        background-color: #fff8e7;
-        border: 4px double #8B6F47;
-        border-radius: 20px;
-        padding: 30px;
-        font-family: Georgia, serif;
-        color: #2b2118;
-    }
-
-    .rodape {
-        text-align: center;
-        font-size: 13px;
-        color: #5c452b;
-        margin-top: 20px;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-st.markdown(
-    """
-    <div class="hero">
-        <h1>🌎 Máquina das Origens</h1>
-        <p>Faça uma viagem no tempo e descubra histórias por trás do seu nome.</p>
-        <p><strong>Projeto de História | Feira de Ciências</strong></p>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+st.markdown("""
+<div class="hero">
+    <h1>🌎 Máquina das Origens</h1>
+    <p>Faça uma viagem no tempo e descubra histórias por trás do seu nome.</p>
+    <p><strong>Projeto de História | Feira de Ciências</strong></p>
+</div>
+""", unsafe_allow_html=True)
 
 col_form, col_info = st.columns([1, 1])
 
 with col_form:
-
     st.markdown("## 📝 Dados da experiência")
 
     nome_completo = st.text_input("Digite seu nome completo")
@@ -101,65 +81,57 @@ with col_form:
         ]
     )
 
-    st.markdown("## 📸 Uso da imagem")
-
-    st.info(
-        "A foto será usada exclusivamente para gerar uma representação histórica nesta atividade educativa. "
-        "A foto não será armazenada pelo projeto nem utilizada para outros fins."
+    gerar_imagem = st.checkbox(
+        "🎨 Quero gerar um retrato histórico com Inteligência Artificial"
     )
 
-    aceite1 = st.checkbox(
-        "Autorizo o uso da minha imagem exclusivamente para esta atividade da feira de ciências."
-    )
+    foto = None
+    aceite1 = True
+    aceite2 = True
 
-    aceite2 = st.checkbox(
-        "Declaro estar ciente de que a imagem não será usada para outros fins."
-    )
+    if gerar_imagem:
+        st.markdown("## 📸 Uso da imagem")
 
-    foto = st.camera_input("Tire sua foto")
+        st.info(
+            "A foto será usada exclusivamente para gerar uma representação histórica nesta atividade educativa. "
+            "A foto não será armazenada pelo projeto nem utilizada para outros fins."
+        )
+
+        aceite1 = st.checkbox(
+            "Autorizo o uso da minha imagem exclusivamente para esta atividade da feira de ciências."
+        )
+
+        aceite2 = st.checkbox(
+            "Declaro estar ciente de que a imagem não será usada para outros fins."
+        )
+
+        foto = st.camera_input("Tire sua foto")
 
     gerar = st.button("📜 Gerar meu Passaporte das Origens")
 
-
 with col_info:
-    st.markdown('<div class="card">', unsafe_allow_html=True)
-
     st.markdown("## 📜 Como funciona?")
+    st.markdown("""
+    **1.** Digite seu nome completo.
 
-    st.markdown(
-        """
-        **1.** Digite seu nome completo.
+    **2.** Escolha um período histórico.
 
-        **2.** Escolha um período histórico.
+    **3.** Se quiser, marque a opção para gerar retrato histórico.
 
-        **3.** Autorize o uso da imagem apenas para esta atividade.
+    **4.** A Máquina das Origens cria seu passaporte histórico.
 
-        **4.** Tire uma foto.
-
-        **5.** A Máquina das Origens cria seu passaporte histórico.
-        """
-    )
+    **5.** Você pode baixar o resultado.
+    """)
 
     st.markdown("## 🌎 Tema: Origens")
-
     st.write(
         "O objetivo é mostrar que nomes, culturas, povos e lugares possuem histórias. "
         "A inteligência artificial não descobre a ancestralidade real da pessoa, "
         "mas ajuda a explorar possíveis origens do nome e conexões com períodos históricos."
     )
 
-    st.markdown("## 🏛️ Missão do visitante")
 
-    st.write(
-        "Depois de receber seu passaporte, observe o período escolhido e pense: "
-        "como as pessoas viviam? Quais costumes chegaram até nós? "
-        "O que essa história revela sobre nossas origens?"
-    )
-
-    st.markdown('</div>', unsafe_allow_html=True)
-
-
-def criar_pdf(nome, periodo, texto, imagem_bytes):
+def criar_pdf(nome, periodo, texto, imagem_bytes=None):
     buffer = BytesIO()
     c = canvas.Canvas(buffer, pagesize=A4)
 
@@ -186,24 +158,31 @@ def criar_pdf(nome, periodo, texto, imagem_bytes):
     c.drawString(2 * cm, altura - 4.2 * cm, f"Nome: {nome}")
     c.drawString(2 * cm, altura - 4.9 * cm, f"Destino historico: {periodo}")
 
-    img_reader = ImageReader(BytesIO(imagem_bytes))
-    c.drawImage(
-        img_reader,
-        2 * cm,
-        8.2 * cm,
-        width=8 * cm,
-        height=8 * cm,
-        preserveAspectRatio=True,
-        anchor="c"
-    )
+    if imagem_bytes:
+        img_reader = ImageReader(BytesIO(imagem_bytes))
+        c.drawImage(
+            img_reader,
+            2 * cm,
+            8.2 * cm,
+            width=8 * cm,
+            height=8 * cm,
+            preserveAspectRatio=True,
+            anchor="c"
+        )
+        x_texto = 10.7 * cm
+        y_texto = altura - 6.0 * cm
+        max_chars = 47
+    else:
+        x_texto = 2 * cm
+        y_texto = altura - 6.2 * cm
+        max_chars = 90
 
     c.setFont("Times-Bold", 14)
-    c.drawString(10.7 * cm, altura - 6.0 * cm, "Registro Historico")
+    c.drawString(x_texto, y_texto, "Registro Historico")
 
     c.setFont("Times-Roman", 10)
-    x = 10.7 * cm
-    y = altura - 6.8 * cm
-    max_chars = 47
+    x = x_texto
+    y = y_texto - 0.8 * cm
 
     linhas = []
     for paragrafo in texto.split("\n"):
@@ -219,17 +198,17 @@ def criar_pdf(nome, periodo, texto, imagem_bytes):
             linhas.append(linha)
         linhas.append("")
 
-    for linha in linhas[:42]:
+    for linha in linhas[:48]:
         c.drawString(x, y, linha)
         y -= 0.43 * cm
 
     c.setFont("Times-Bold", 12)
-    c.drawString(2 * cm, 6.3 * cm, "Missao do Historiador:")
+    c.drawString(2 * cm, 4.3 * cm, "Missao do Historiador:")
     c.setFont("Times-Roman", 10)
-    c.drawString(2 * cm, 5.8 * cm, "Observe sua viagem no tempo e descubra:")
-    c.drawString(2 * cm, 5.3 * cm, "- Como as pessoas viviam nesse periodo?")
-    c.drawString(2 * cm, 4.8 * cm, "- Que costumes permanecem ate hoje?")
-    c.drawString(2 * cm, 4.3 * cm, "- O que essa historia revela sobre nossas origens?")
+    c.drawString(2 * cm, 3.8 * cm, "Observe sua viagem no tempo e descubra:")
+    c.drawString(2 * cm, 3.3 * cm, "- Como as pessoas viviam nesse periodo?")
+    c.drawString(2 * cm, 2.8 * cm, "- Que costumes permanecem ate hoje?")
+    c.drawString(2 * cm, 2.3 * cm, "- O que essa historia revela sobre nossas origens?")
 
     c.setFont("Times-Italic", 10)
     c.drawCentredString(
@@ -244,16 +223,14 @@ def criar_pdf(nome, periodo, texto, imagem_bytes):
 
 
 if gerar:
-
     if nome_completo.strip() == "":
         st.warning("Digite seu nome completo.")
-    elif not aceite1 or not aceite2:
-        st.warning("É necessário marcar os dois aceites para continuar.")
-    elif foto is None:
+    elif gerar_imagem and (not aceite1 or not aceite2):
+        st.warning("É necessário marcar os dois aceites para gerar o retrato histórico.")
+    elif gerar_imagem and foto is None:
         st.warning("Tire uma foto para gerar o retrato histórico.")
     else:
         with st.spinner("Gerando texto histórico..."):
-
             prompt_texto = f"""
             Você é um professor de História do Ensino Fundamental.
 
@@ -294,32 +271,35 @@ if gerar:
 
             texto_historico = resposta.output_text
 
-        with st.spinner("Transformando sua foto em retrato histórico..."):
+        img = None
+        image_bytes = None
 
-            foto_bytes = foto.getvalue()
-            arquivo_foto = BytesIO(foto_bytes)
-            arquivo_foto.name = "foto_visitante.png"
+        if gerar_imagem:
+            with st.spinner("Transformando sua foto em retrato histórico..."):
+                foto_bytes = foto.getvalue()
+                arquivo_foto = BytesIO(foto_bytes)
+                arquivo_foto.name = "foto_visitante.png"
 
-            prompt_imagem = f"""
-            Transforme a pessoa da foto em um retrato histórico educativo.
+                prompt_imagem = f"""
+                Transforme a pessoa da foto em um retrato histórico educativo.
 
-            Contexto histórico: {periodo}
+                Contexto histórico: {periodo}
 
-            Manter o rosto reconhecível de forma respeitosa.
-            Adaptar roupas, cenário e elementos visuais ao período histórico escolhido.
-            Estilo: ilustração histórica colorida, livro didático, adequada para estudantes.
-            Não incluir violência, símbolos ofensivos, caricaturas ou estereótipos.
-            """
+                Manter o rosto reconhecível de forma respeitosa.
+                Adaptar roupas, cenário e elementos visuais ao período histórico escolhido.
+                Estilo: ilustração histórica colorida, livro didático, adequada para estudantes.
+                Não incluir violência, símbolos ofensivos, caricaturas ou estereótipos.
+                """
 
-            imagem = client.images.edit(
-                model="gpt-image-1",
-                image=arquivo_foto,
-                prompt=prompt_imagem,
-                size="1024x1024"
-            )
+                imagem = client.images.edit(
+                    model="gpt-image-1",
+                    image=arquivo_foto,
+                    prompt=prompt_imagem,
+                    size="1024x1024"
+                )
 
-            image_bytes = base64.b64decode(imagem.data[0].b64_json)
-            img = Image.open(BytesIO(image_bytes))
+                image_bytes = base64.b64decode(imagem.data[0].b64_json)
+                img = Image.open(BytesIO(image_bytes))
 
         st.markdown("---")
         st.success("Passaporte das Origens criado!")
@@ -327,11 +307,22 @@ if gerar:
         col_img, col_txt = st.columns([1, 1.2])
 
         with col_img:
-            st.image(
-                img,
-                caption=f"{nome_completo} em {periodo}",
-                use_container_width=True
-            )
+            if gerar_imagem and img is not None:
+                st.image(
+                    img,
+                    caption=f"{nome_completo} em {periodo}",
+                    use_container_width=True
+                )
+            else:
+                st.markdown("""
+                ### 🌎 Viagem no Tempo
+
+                Esta versão do passaporte foi gerada apenas com texto histórico.
+
+                Para criar um retrato histórico personalizado, marque a opção:
+
+                **🎨 Quero gerar um retrato histórico com Inteligência Artificial**
+                """)
 
         with col_txt:
             st.markdown(
@@ -345,7 +336,7 @@ if gerar:
                 {texto_historico.replace(chr(10), "<br>")}
                 </div>
                 <hr>
-                <p class="rodape">
+                <p style="text-align:center; font-size:13px;">
                 Projeto de História | Feira de Ciências | Máquina das Origens
                 </p>
                 </div>
@@ -367,9 +358,10 @@ if gerar:
             mime="application/pdf"
         )
 
-        st.download_button(
-            label="⬇️ Baixar apenas o retrato histórico",
-            data=image_bytes,
-            file_name="retrato_historico.png",
-            mime="image/png"
-        )
+        if gerar_imagem and image_bytes is not None:
+            st.download_button(
+                label="⬇️ Baixar apenas o retrato histórico",
+                data=image_bytes,
+                file_name="retrato_historico.png",
+                mime="image/png"
+            )
